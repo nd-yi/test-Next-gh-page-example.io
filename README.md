@@ -39,5 +39,9 @@ Example:
 ```bash
 https://github.com/thierryc/Next-gh-page-example/
 
+# 按照以上操作  最终在下面这个格式地址能成功访问
 https://thierryc.github.io/Next-gh-page-example/
 ```
+
+Note 
+由于我本地访问需要密码  所以最后一个git push 需要单独操作
