@@ -4,7 +4,6 @@ import Head from 'next/head'
 import React, { useEffect, useRef } from 'react';
 import { BrowserView, MobileView, getSelectorsByUserAgent } from 'react-device-detect'
 import classNames from 'classnames';
-// import DropMenu from './components/DropMenu';
 import Menu from '../components/Menu';
 import FAQ from '../components/FAQ';
 
@@ -141,7 +140,8 @@ function Home(props) {
   ]
 
   const { uaString } = props || {}
-  const { isMobile, isBrowser } = getSelectorsByUserAgent(uaString)
+  console.log('========================= ~ Home ~ uaString', uaString)
+  const { isMobile, isBrowser } = getSelectorsByUserAgent(uaString) || {}
 
 
   const handleClickFAQ = (nodeRef) => {
@@ -150,28 +150,28 @@ function Home(props) {
     }
   }
 
-  useEffect(() => {
-    import('tiny-slider').then(({ tns }) => {
-      tns({
-        container: eleRef.current,
-        items: 3,
-        // slideBy: 'page',
-        speed: 400,
-        mouseDrag: true,
-        autoplay: false,
-        preventScrollOnTouch: 'auto',
-        controls: false,
-        navPosition: 'bottom',
-        gutter:  isMobile ? 0 : 20,
-        autoplay: true,
-        autoplayTimeout: 4000,
-        autoplayButton: false,
-        // fixedWidth: 150,
-        // autoHeight: true,
-        // autoWidth: true,
-      });
-    })
-}, [])
+//   useEffect(() => {
+//     import('tiny-slider').then(({ tns }) => {
+//       tns({
+//         container: eleRef.current,
+//         items: 3,
+//         // slideBy: 'page',
+//         speed: 400,
+//         mouseDrag: true,
+//         autoplay: false,
+//         preventScrollOnTouch: 'auto',
+//         controls: false,
+//         navPosition: 'bottom',
+//         gutter:  isMobile ? 0 : 20,
+//         autoplay: true,
+//         autoplayTimeout: 4000,
+//         autoplayButton: false,
+//         // fixedWidth: 150,
+//         // autoHeight: true,
+//         // autoWidth: true,
+//       });
+//     })
+// }, [isMobile])
 
   return (
     <div className="App">
@@ -197,9 +197,6 @@ function Home(props) {
               </Menu>
             </MobileView>
             
-            {/* <DropMenu>
-              <div><Image src={english} width="28" height="22" alt="english" /></div>
-            </DropMenu> */}
           </div>
         </nav>
         <div className={classNames('first-section-content', {'first-section-content-mobile': isMobile, 'first-section-content-pc' : isBrowser})}>
@@ -208,7 +205,7 @@ function Home(props) {
           </h1>
           <div className={classNames('desc', {'desc-mobile': isMobile, 'desc-pc' : isBrowser})}>
             <p>
-              ovo (ovo.space) is the industry's frst platform to issue holographic AR-NFT
+              ovo (ovo.space) is the industry&apos;s frst platform to issue holographic AR-NFT
               assets and is currently deployed on the BSC and FLOW. The NFT issued by ovo
               will be delivered as Super Avatars to various Metaverses and GameFi platforms.
               OVO will be an important content provider for the future Metaverse.
@@ -218,7 +215,7 @@ function Home(props) {
           <div className={classNames('btn-box', {'btn-box-mobile': isMobile})}>
             {
               btnList.map(({ content, link, iconUrl }) => (
-                <Link href={link}>
+                <Link href={link} key={link} passHref>
                   <button key={content} className={classNames('button', {'button-mobile': isMobile})}>
                     <Image src={iconUrl} width="18" height="18" alt="bsc" />
                     <span>{content}</span>
@@ -250,8 +247,8 @@ function Home(props) {
           <Image src={ipRight} width="24" alt="ip icon" />
         </div>
         <div ref={eleRef} className='slider-box'>
-          { sliderImages.map(image => (
-            <div key={image}>
+          { sliderImages.map((image, index) => (
+            <div key={image + index}>
               <Image src={image} layout="intrinsic" height={isMobile ? "120" : '220'} alt="sliderImages" />
             </div>
           ))}
@@ -263,7 +260,7 @@ function Home(props) {
         <div className='content'>
           {
             OVOSPACEMetaverseList.map(({ title, image, content }) => (
-              <div className={classNames('item', {'item-mobile': isMobile, 'item-pc' : isBrowser})} key={title}>
+              <div key={title} className={classNames('item', {'item-mobile': isMobile, 'item-pc' : isBrowser})}>
                 <Image src={image} width="28"  alt="dcim" />
                 <h2 className='title'>{title}</h2>
                 <p className='desc'>{content}</p>
@@ -316,7 +313,7 @@ function Home(props) {
               const isLastItem = index + 1 === activityProgressList.length;
 
               return (
-                <div className="activity" key={date + info}>
+                <div className="activity" key={date + info + index}>
                   <span className= {active ? 'circle': 'hollow-circle'}></span>
                   <span className="time">
                     {date}
@@ -336,7 +333,7 @@ function Home(props) {
         <h1 ref={partnersRef} className={classNames('title', {'title-mobile': isMobile, 'title-pc' : isBrowser})}>PARTNERS</h1>
         <div className={classNames('seventh-section-content', {'seventh-section-content-mobile': isMobile, 'seventh-section-content-pc' : isBrowser})}>
           {
-            PartnersImages.map(image =>  <div key={image}><Image src={image} layout="intrinsic" alt="logo1" /></div>)
+            PartnersImages.map((image, index) =>  <div key={image + index}><Image src={image} layout="intrinsic" alt="logo1" /></div>)
           }
          
         </div>
@@ -359,9 +356,28 @@ function Home(props) {
     </div>
   );
 }
-export default Home;
 
-export function getServerSideProps(context) {
+
+// Home.getInitialProps = async ({ req }) => {
+//   console.log('========================= ~ getInitialProps ~ req', req)
+//   let userAgent;
+//   if (req) { // if you are on the server and you get a 'req' property from your context
+//     userAgent = req.headers['user-agent'] // get the user-agent from the headers
+//   } else {
+//     userAgent = navigator.userAgent // if you are on the client you can access the navigator from the window object
+//     console.log('========================= ~ getInitialProps ~ navigator', navigator)
+//   }
+
+//   return {
+//     props: {
+//       uaString: userAgent
+//     }
+//   }
+// }
+
+
+
+export async function getServerSideProps(context) {
   return {
     props: {
       uaString: context.req.headers['user-agent']
@@ -369,6 +385,7 @@ export function getServerSideProps(context) {
   }
 }
 
+export default  Home;
 // export default function Home() {
 //   return (
 //     <div>

@@ -6,4 +6,8 @@ const debug = process.env.NODE_ENV !== 'production'
 
 module.exports = {
   assetPrefix: !debug ? '/test-Next-gh-page-example.io/' : '',
+  images: {
+    loader: 'akamai',
+    path: '',
+  }
 }

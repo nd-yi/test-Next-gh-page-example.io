@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image'
 import { Link } from 'react-router-dom';
 import Japanese from '../assets/images/Japanese.png';
 import chinese from '../assets/images/chinese.png';
@@ -18,9 +19,9 @@ const DropMenu = ({
       {isOpen && (
         <div className="DropMenu-content">
           <div className="DropMenu-content-box">
-            <img src={Japanese} width="28px" height="22px" alt="img_language_e" />
-            <img width="28px" height="22px" src={chinese} alt="jp_logo" />
-            <img width="28px" height="22px" src={korean} alt="jp_logo" />
+            <Image src={Japanese} width="28" height="22" alt="img_language_e" />
+            <Image width="28" height="22" src={chinese} alt="jp_logo" />
+            <Image width="28" height="22" src={korean} alt="jp_logo" />
           </div>
         </div>
       )}

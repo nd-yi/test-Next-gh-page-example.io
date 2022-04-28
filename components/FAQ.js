@@ -16,7 +16,7 @@ const FAQ = forwardRef((porps, ref) => {
             <span className='content-item-index'>01</span>
             <h3>What is OVO?</h3>
             <div className='desc'>
-              <p>OVO (ovo.space) is the industry's first platform to issue holographic AR-NFT assets and is currently deployed on the
+              <p>OVO (ovo.space) is the industry&apos;s first platform to issue holographic AR-NFT assets and is currently deployed on the
                 BSC and FLOW. The NFT issued by OVO will be delivered as Super Avatars to various Metaverses and GameFi platforms.
                 OVO will be an important content provider for the future Metaverse. </p>
               <p className='group'>The DCIM standard pioneered by OVO ensures the legitimacy of NFT asset issuance and transactions, and binds the value
@@ -97,7 +97,7 @@ const FAQ = forwardRef((porps, ref) => {
               <div className='group'>
                 <p>
                   <span>3. If someone buys a Mystery Box through your referral link, the 20% commission of sales automatically shows on the OVO account as below.
-                  Remember to often check how much you earn & claim to your wallet. The affiliates' relationship with your customers will be permanent.</span>
+                  Remember to often check how much you earn & claim to your wallet. The affiliates relationship with your customers will be permanent.</span>
                   <picture>
                     <source srcSet={faqTwoV2} media="(min-width: 800px)"></source>
                     <Image src={faqTwoV1} layout='intrinsic' alt="tu2" />
@@ -110,5 +110,7 @@ const FAQ = forwardRef((porps, ref) => {
       </section>
   )
 })
+
+FAQ.displayName="FAQ"
 
 export default FAQ;
